@@ -60,9 +60,9 @@
                             <div class="col-md-6">
                                 <select id="priority" type="" class="form-control" name="priority">
                                     <option value="">Select Priority</option>
-                                    <option value="low">Low</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
+                                    @foreach ($priorities as $priority)
+                                        <option value="{{ $priority->id }}">{{ $priority->name }}</option>
+                                    @endforeach
                                 </select>
  
                                 @if ($errors->has('priority'))

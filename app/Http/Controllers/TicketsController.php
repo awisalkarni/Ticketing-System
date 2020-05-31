@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Category;
 use App\Ticket;
+use App\Priority;
+use App\Mailers\AppMailer;
+
+
 
 class TicketsController extends Controller
 {
@@ -34,8 +39,9 @@ class TicketsController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $priorities = Priority::all();
  
-        return view('tickets.create', compact('categories'));
+        return view('tickets.create', compact('categories', 'priorities'));
     }
 
     /**
@@ -56,9 +62,9 @@ class TicketsController extends Controller
         $ticket = new Ticket([
             'title' => $request->input('title'),
             'user_id' => Auth::user()->id,
-            'ticket_id' => strtoupper(str_random(10)),
+            'ticket_id' => strtoupper(Str::random(10)),
             'category_id' => $request->input('category'),
-            'priority' => $request->input('priority'),
+            'priority_id' => $request->input('priority'),
             'message' => $request->input('message'),
             'status' => "Open"
         ]);
